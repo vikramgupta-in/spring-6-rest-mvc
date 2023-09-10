@@ -4,22 +4,19 @@ import guru.springframework.spring6restmvc.model.Customer;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    private Map<Integer,Customer> customerMap;
+    private Map<UUID,Customer> customerMap;
 
     public CustomerServiceImpl() {
         this.customerMap = new HashMap<>();
 
         Customer cust1 = Customer.builder()
                 .customerName("First Customer")
-                .Id(1)
+                .Id(UUID.randomUUID())
                 .version(1)
                 .createdDate(LocalDateTime.now())
                 .lastModifiedDate(LocalDateTime.now())
@@ -27,7 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer cust2 = Customer.builder()
                 .customerName("Second Customer")
-                .Id(2)
+                .Id(UUID.randomUUID())
                 .version(1)
                 .createdDate(LocalDateTime.now())
                 .lastModifiedDate(LocalDateTime.now())
@@ -35,7 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer cust3 = Customer.builder()
                 .customerName("Third Customer")
-                .Id(3)
+                .Id(UUID.randomUUID())
                 .version(1)
                 .createdDate(LocalDateTime.now())
                 .lastModifiedDate(LocalDateTime.now())
@@ -52,7 +49,20 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer getCustomerById(int id) {
+    public Customer getCustomerById(UUID id) {
         return customerMap.get(id);
+    }
+
+    @Override
+    public Customer saveNewCustomer(Customer customer) {
+        Customer savedCustomer = Customer.builder()
+                .Id(UUID.randomUUID())
+                .version(customer.getVersion())
+                .customerName(customer.getCustomerName())
+                .createdDate(LocalDateTime.now())
+                .lastModifiedDate(LocalDateTime.now())
+                                        .build();
+        customerMap.put(savedCustomer.getId(),savedCustomer);
+        return savedCustomer;
     }
 }
