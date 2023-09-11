@@ -11,4 +11,6 @@ List<Customer> getCustomers();
 Customer getCustomerById(UUID id);
 
     Customer saveNewCustomer(Customer customer);
+
+    void updateCustomerById(UUID custId, Customer customer);
 }
