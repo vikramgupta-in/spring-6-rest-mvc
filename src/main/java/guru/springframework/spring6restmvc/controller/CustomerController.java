@@ -3,6 +3,7 @@ package guru.springframework.spring6restmvc.controller;
 import guru.springframework.spring6restmvc.model.Customer;
 import guru.springframework.spring6restmvc.service.CustomerService;
 import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,12 @@ import java.util.UUID;
 public class CustomerController {
 
     private final CustomerService customerService;
+
+    @DeleteMapping("{Id}")
+    public ResponseEntity deleteById(@PathVariable UUID Id){
+        customerService.deleteById(Id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 
 
     @PutMapping("{custId}")
