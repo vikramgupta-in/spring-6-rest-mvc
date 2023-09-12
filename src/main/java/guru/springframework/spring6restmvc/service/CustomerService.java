@@ -15,4 +15,6 @@ Customer getCustomerById(UUID id);
     void updateCustomerById(UUID custId, Customer customer);
 
     void deleteById(UUID id);
+
+    void patchCustById(UUID id, Customer customer);
 }
